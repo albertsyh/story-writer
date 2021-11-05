@@ -1,19 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateStoryDto } from './dto/create-story.dto';
 import { UpdateStoryDto } from './dto/update-story.dto';
+
+import database, { stringifyStory } from 'src/database';
 
 @Injectable()
 export class StoriesService {
   create(createStoryDto: CreateStoryDto) {
+    console.log("receiving a body", createStoryDto)
     return 'This action adds a new story';
   }
 
   findAll() {
-    return `This action returns all stories`;
+    return database.stories.map(eachStory => stringifyStory(eachStory));
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} story`;
+    if (!database.stories[id]) {
+      // check if index exist in stories
+      return new HttpException('Story not found', HttpStatus.NOT_FOUND)
+    }
+    return stringifyStory(database.stories[id])
   }
 
   update(id: number, updateStoryDto: UpdateStoryDto) {
