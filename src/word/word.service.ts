@@ -7,12 +7,17 @@ import database, { stringifyStory } from 'src/database';
 @Injectable()
 export class WordService {
   create(createWordDto: CreateWordDto) {
-    return 'This action adds a new word';
+    const lastIndex = database.stories.length - 1;
+    const lastElementInArray = database.stories[lastIndex];
+    lastElementInArray.push(createWordDto.word)
+    console.log("created", createWordDto.word)
+    return createWordDto.word;
   }
 
   findAll() {
     // get last index of array
     const lastIndex = database.stories.length - 1;
+    console.log(stringifyStory(database.stories[lastIndex]))
     return stringifyStory(database.stories[lastIndex]);
   }
 
