@@ -7,11 +7,13 @@ import database, { stringifyStory } from 'src/database';
 @Injectable()
 export class StoriesService {
   create(createStoryDto: CreateStoryDto) {
-    console.log("receiving a body", createStoryDto)
-    return 'This action adds a new story';
+    // add story to database
+    database.stories.push(createStoryDto.story)
+    return stringifyStory(database.stories[database.stories.length - 1])
   }
 
   findAll() {
+    console.log(database)
     return database.stories.map(eachStory => stringifyStory(eachStory));
   }
 
