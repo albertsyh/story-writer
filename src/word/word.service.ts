@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateWordDto } from './dto/create-word.dto';
 import { UpdateWordDto } from './dto/update-word.dto';
 
+import database, { stringifyStory } from 'src/database';
+
 @Injectable()
 export class WordService {
   create(createWordDto: CreateWordDto) {
@@ -9,7 +11,9 @@ export class WordService {
   }
 
   findAll() {
-    return `This action returns all word`;
+    // get last index of array
+    const lastIndex = database.stories.length - 1;
+    return stringifyStory(database.stories[lastIndex]);
   }
 
   findOne(id: number) {

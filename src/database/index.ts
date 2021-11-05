@@ -1,6 +1,6 @@
 export const stringifyStory = (arrayOfWords) => {
-  return arrayOfWords.join(' ')
-}
+  return arrayOfWords.join(' ');
+};
 
 export default {
   stories: [
