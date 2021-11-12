@@ -22,9 +22,9 @@ export class WordController {
     return this.wordService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWordDto: UpdateWordDto) {
-    return this.wordService.update(+id, updateWordDto);
+  @Patch(':storyId/:id')
+  update(@Param('storyId') storyId: string, @Param('id') id: string, @Body() updateWordDto: UpdateWordDto) {
+    return this.wordService.update(+storyId, +id, updateWordDto);
   }
 
   @Delete(':id')
