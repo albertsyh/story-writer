@@ -32,8 +32,19 @@ export class WordService {
     return lastElementInArray[id];
   }
 
-  update(id: number, updateWordDto: UpdateWordDto) {
-    return `This action updates a #${id} word`;
+  update(storyId: number, id: number, updateWordDto: UpdateWordDto) {
+    const storySelected = database.stories[storyId];
+    if (!storySelected) {
+      return new HttpException('Story not found', HttpStatus.NOT_FOUND);
+    }
+
+    const wordSelected = storySelected[id]
+    if (!wordSelected) {
+      return new HttpException('Word not found', HttpStatus.NOT_FOUND);
+    }
+
+    storySelected[id] = updateWordDto.word;
+    return storySelected;
   }
 
   remove(id: number) {
