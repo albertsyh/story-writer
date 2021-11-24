@@ -37,15 +37,15 @@ export class WordService {
   }
 
   remove(id: number) {
-    if (!database.stories[id]) {
-      return new HttpException('Story not found', HttpStatus.NOT_FOUND);
+    const lastIndex = database.stories.length - 1;
+    const lastElementInArray = database.stories[lastIndex];
+
+    if (!lastElementInArray[id]) {
+      return new HttpException('Word not found', HttpStatus.NOT_FOUND);
     }
 
-    // get story from database
-    // delete last word
-    const story = database.stories[id];
-    story.pop();
+    lastElementInArray.splice(id, 1);
 
-    return stringifyStory(story);
+    return stringifyStory(lastElementInArray);
   }
 }
