@@ -37,6 +37,15 @@ export class WordService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} word`;
+    const lastIndex = database.stories.length - 1;
+    const lastElementInArray = database.stories[lastIndex];
+
+    if (!lastElementInArray[id]) {
+      return new HttpException('Word not found', HttpStatus.NOT_FOUND);
+    }
+
+    lastElementInArray.splice(id, 1);
+
+    return stringifyStory(lastElementInArray);
   }
 }
